@@ -3,7 +3,7 @@ package com.zkq.service;
 import com.zkq.Mapper.BlogMapper;
 import com.zkq.domain.Blog;
 import com.zkq.domain.Page;
-import com.zkq.domain.blogCustom;
+import com.zkq.domain.BlogCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,12 @@ public class BlogServiceImpl implements  BlogServic {
     }
 
     @Override
-    public boolean deleteBlog(blogCustom blogCustom) {
+    public boolean deleteBlog(BlogCustom blogCustom) {
         return blogMapper.deleteBlog(blogCustom)==1?true:false;
+    }
+
+    @Override
+    public boolean insertBlog(BlogCustom blogCustom) {
+        return blogMapper.insertBlog(blogCustom)==1?true:false;
     }
 }

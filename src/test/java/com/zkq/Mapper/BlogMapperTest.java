@@ -2,7 +2,7 @@ package com.zkq.Mapper;
 
 import com.zkq.domain.Blog;
 import com.zkq.domain.Page;
-import com.zkq.domain.blogCustom;
+import com.zkq.domain.BlogCustom;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +52,9 @@ public class BlogMapperTest {
 
     @Test
     public void deleteBlog() {
-        blogCustom blogCustom=new blogCustom();
-        blogCustom.setId(26);
-        int a=blogMapper.deleteBlog(blogCustom);
+        BlogCustom BlogCustom =new BlogCustom();
+        BlogCustom.setId(26);
+        int a=blogMapper.deleteBlog(BlogCustom);
         System.out.println(a);
     }
 }

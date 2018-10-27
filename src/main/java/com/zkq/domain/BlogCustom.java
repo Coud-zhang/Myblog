@@ -3,5 +3,5 @@ package com.zkq.domain;
 import org.springframework.stereotype.Component;
 
 @Component
-public class blogCustom extends Blog {
+public class BlogCustom extends Blog {
 }

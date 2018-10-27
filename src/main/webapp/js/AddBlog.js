@@ -17,12 +17,16 @@ $(document).on('click','#sub',function(){
     var label=$("#label").val();
     console.log(title+article+label)
     $.ajax({
-        url:"/.action",
+        url:"/insertBlog.action",
         type: "POST",
         dataType:"json",
         data: {"title":title,"article":article,"label":label},
         success:function (data) {
-            
+            if(data[0]=="true"){
+                alert("添加成功")
+            }else{
+                alert("添加失败")
+            }
         }
     })
 });

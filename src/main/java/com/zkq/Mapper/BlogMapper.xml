@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zkq.Mapper.BlogMapper">
-    <sql id="query_blog">
-        <if test="keyword!=null and keyword!=''">
+    <sql id="queryByPage">
+        <if test="keyword!=null">
             AND LOWER (title) LIKE "%${keyword}%"
+        </if>
+        <if test="start!=null and pageNumber!=0">
+         limit #{start}
+        </if>
+        <if test="pageNumber!=null and pageNumber!=0">
+            ,#{pageNumber}
         </if>
     </sql>
     <!--分页查询所有博客-->
     <select id="getBlogByPage" parameterType="Page" resultType="Blog">
-        select * from blog limit
-        <if test="start!=null ">
-            #{start}
-        </if>
-        <if test="pageNumber!=null">
-            ,#{pageNumber}
-        </if>
+        select * from blog
+        <include refid="queryByPage"></include>
     </select>
     <!--分页查询博客总数-->
     <select id="getBlogTotalRows" parameterType="Page" resultType="int">
@@ -24,21 +25,14 @@
     <select id="getBlogWithKeyWord" parameterType="Page" resultType="Blog">
         SELECT  * FROM blog
         <where>
-            <include refid="query_blog"></include>
+            <include refid="queryByPage"></include>
         </where>
-        limit
-        <if test="start!=null ">
-            #{start}
-        </if>
-        <if test="pageNumber!=null">
-            ,#{pageNumber}
-        </if>
     </select>
     <!--关键字查询博客总数-->
     <select id="getBlogTotalWithKeyWord" parameterType="Page" resultType="int">
         SELECT  COUNT(1) FROM blog
         <where>
-            <include refid="query_blog"></include>
+            <include refid="queryByPage"></include>
         </where>
     </select>
     <!--删除博客-->
@@ -48,4 +42,8 @@
              id=#{id}
         </if>
     </delete>
+    <!--新增博客-->
+    <insert id="insertBlog" parameterType="blogCustom">
+        insert into blog(title,article,zan,label) VALUES (#{title},#{article},0,#{label})
+    </insert>
 </mapper>
