@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkq.Mapper.UserMapper">
+    <sql id="query_users">
+            <if test="username!=null and username!=''">
+                AND users.username=#{username}
+            </if>
+            <if test="password!=null and password!=''">
+                AND users.password=#{password}
+            </if>
+    </sql>
+<select id="checkUserByUserNameAndPassword" parameterType="UsersCustom" resultType="int">
+SELECT COUNT(*) FROM users
+<where>
+    <include refid="query_users"></include>
+</where>
+</select>
+</mapper>
