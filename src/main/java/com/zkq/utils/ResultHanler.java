@@ -1,4 +1,4 @@
-package com.zkq.domain;
+package com.zkq.utils;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

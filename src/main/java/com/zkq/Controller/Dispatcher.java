@@ -10,7 +10,7 @@ public class Dispatcher {
 
     @RequestMapping("/toMain")
     public String dispatcherToMain(){
-        log.debug("跳转到main.HTML");
+        log.debug("跳转到main.html");
         return "main";
     }
 }

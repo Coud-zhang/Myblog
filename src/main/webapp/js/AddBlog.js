@@ -3,8 +3,8 @@ layui.use('layedit', function(){
     layedit = layui.layedit;
     layedit.set({
         uploadImage: {
-            url: '' //接口url
-            ,type: 'post' //默认post
+            url: "/fileUpload.action", //接口url
+            type:"post"
         }
         ,height:150
     });

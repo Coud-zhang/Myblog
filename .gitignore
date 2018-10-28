@@ -23,9 +23,15 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-.gitignore
-/com.zkq.Log_ssm.iml
 /target/
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+/com.zkq.Log_ssm.iml
+*.iml
+out
+gen
 /src/main/webapp/layui/
-/.idea/
+/src/main/webapp/upload/

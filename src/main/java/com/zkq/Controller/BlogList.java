@@ -2,7 +2,7 @@ package com.zkq.Controller;
 
 import com.zkq.domain.Blog;
 import com.zkq.domain.Page;
-import com.zkq.domain.ResultHanler;
+import com.zkq.utils.ResultHanler;
 import com.zkq.domain.BlogCustom;
 import com.zkq.service.BlogServic;
 import org.springframework.beans.factory.annotation.Autowired;

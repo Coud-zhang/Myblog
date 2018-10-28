@@ -1,28 +1,41 @@
 package com.zkq.Controller;
 
+import com.zkq.utils.uploadResultHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class upload {
 
-    public String fileUpload(HttpServletRequest request, @RequestParam("file") CommonsMultipartFile file) throws IOException {
+    @RequestMapping("/fileUpload")
+    @ResponseBody
+    public uploadResultHandler<String> fileUpload(HttpServletRequest request, @RequestParam("file") CommonsMultipartFile file) throws IOException {
         //得到文件保存的路径
         String path=request.getServletContext().getRealPath("/upload");
         byte [] buffer=new byte[400];
         int len=0;
-        InputStream is= file.getInputStream();
-        OutputStream os=new FileOutputStream(new File(path,file.getOriginalFilename()));
-        while ((len=is.read())!=-1){
-            os.write(buffer,0,len);
+        Map<String,String> map=new HashMap<>();
+        if(file!=null){
+            InputStream is= file.getInputStream();
+            OutputStream os=new FileOutputStream(new File(path,file.getOriginalFilename()));
+            while ((len=is.read())!=-1){
+                os.write(buffer,0,len);
+            }
+            map.put("src","upload/"+file.getOriginalFilename());//upload
+            map.put("title",file.getOriginalFilename());
+            is.close();
+            os.close();
+            return new uploadResultHandler(0,"",map);
+        }else{
+            return new uploadResultHandler(1,"",map);
         }
-        is.close();
-        os.close();
-        //使用返回string方式进行存储转发
-        return "jsp/main.jsp";
     }
 }
