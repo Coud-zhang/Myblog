@@ -13,4 +13,5 @@ public interface BlogServic {
     public void setBlogTotalWithKeyWord(Page page);
     public boolean deleteBlog(BlogCustom BlogCustom);
     public boolean insertBlog(BlogCustom blogCustom);
+    public BlogCustom getBlogById(BlogCustom blogCustom);
 }

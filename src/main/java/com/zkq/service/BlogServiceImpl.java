@@ -2,11 +2,13 @@ package com.zkq.service;
 
 import com.zkq.Mapper.BlogMapper;
 import com.zkq.domain.Blog;
-import com.zkq.domain.Page;
 import com.zkq.domain.BlogCustom;
+import com.zkq.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @Service
 public class BlogServiceImpl implements  BlogServic {
@@ -46,6 +48,14 @@ public class BlogServiceImpl implements  BlogServic {
 
     @Override
     public boolean insertBlog(BlogCustom blogCustom) {
+        Date date=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        blogCustom.setData(sdf.format(date));
         return blogMapper.insertBlog(blogCustom)==1?true:false;
+    }
+
+    @Override
+    public BlogCustom getBlogById(BlogCustom blogCustom) {
+        return blogMapper.getBlogById(blogCustom);
     }
 }

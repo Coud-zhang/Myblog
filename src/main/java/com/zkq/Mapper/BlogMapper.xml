@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zkq.Mapper.BlogMapper">
+    <sql id="queryByBlog">
+        <if test="id!=null">
+            id=#{id}
+        </if>
+    </sql>
     <sql id="queryByPage">
         <if test="keyword!=null">
             AND LOWER (title) LIKE "%${keyword}%"
@@ -37,13 +42,20 @@
     </select>
     <!--删除博客-->
     <delete id="deleteBlog" parameterType="blogCustom">
-        DELETE from blog WHERE
-        <if test="id!=null">
-             id=#{id}
-        </if>
+        DELETE from blog 
+        <where>
+            <include refid="queryByBlog"></include>
+        </where>
     </delete>
     <!--新增博客-->
     <insert id="insertBlog" parameterType="blogCustom">
-        insert into blog(title,article,zan,label) VALUES (#{title},#{article},0,#{label})
+        insert into blog(title,article,data,zan,label) VALUES (#{title},#{article},#{data},0,#{label})
     </insert>
+    <!--根据id查找博客-->
+    <select id="getBlogById" parameterType="blogCustom" resultType="BlogCustom">
+        SELECT title,article,label from blog
+        <where>
+          <include refid="queryByBlog"></include>
+        </where>
+    </select>
 </mapper>

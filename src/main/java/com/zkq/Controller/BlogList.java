@@ -61,4 +61,9 @@ public class BlogList {
          }
          return  blogs;
      }
+     @RequestMapping("/getBlogById")
+    @ResponseBody
+    public BlogCustom getBlogById(BlogCustom blogCustom){
+         return  blogServic.getBlogById(blogCustom);
+     }
 }

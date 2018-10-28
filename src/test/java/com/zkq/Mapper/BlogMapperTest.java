@@ -53,8 +53,16 @@ public class BlogMapperTest {
     @Test
     public void deleteBlog() {
         BlogCustom BlogCustom =new BlogCustom();
-        BlogCustom.setId(26);
+        BlogCustom.setId(2);
         int a=blogMapper.deleteBlog(BlogCustom);
         System.out.println(a);
+    }
+
+    @Test
+    public void getBlogById() {
+        BlogCustom BlogCustom =new BlogCustom();
+        BlogCustom.setId(27);
+        BlogCustom blogCustom=blogMapper.getBlogById(BlogCustom);
+        System.out.println(blogCustom);
     }
 }
