@@ -38,21 +38,4 @@ $(function () {
             }
         }
     });
-    $("#login").on("click",function () {
-        var username=$("#username").val()
-        var password=$("#password").val()
-       $.ajax({
-           url:"/login.action",
-           type: "POST",
-           dataType:"json",
-           data:{"username":username,"password":password},
-           success:function (data) {
-               if(data==true){
-                   window.location.href="/toMain.action";
-               }else{
-                  alert("用户名或密码错误，请重新输入")
-               }
-           }
-       })
-    })
 });
