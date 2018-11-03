@@ -41,11 +41,12 @@ $(function () {
     $("#login").on("click",function () {
         var username=$("#username").val()
         var password=$("#password").val()
+        var remeber=$("#remeberMe").val()
         $.ajax({
             url:"/login.action",
             type: "POST",
             dataType:"json",
-            data:{"username":username,"password":password},
+            data:{"username":username,"password":password,"remberMe":remeber},
             success:function (data) {
                 if(data==true){
                     window.location.href="/toMain.action";

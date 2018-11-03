@@ -13,4 +13,13 @@ public class Dispatcher {
         log.debug("跳转到main.html");
         return "main";
     }
+    @RequestMapping("/toView")
+    public String dispatcherToview(){
+        log.debug("跳转到main.html");
+        return "view";
+    }
+    @RequestMapping("/aboutme")
+    public  String aboutMe(){
+        return "about";
+    }
 }

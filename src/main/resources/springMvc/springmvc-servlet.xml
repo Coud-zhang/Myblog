@@ -21,4 +21,19 @@
         <property name="prefix" value="/WEB-INF/"></property>
         <property name="suffix" value=".html"></property>
     </bean>
+    <!--配置拦截器-->
+    <mvc:interceptors>
+       <mvc:interceptor>
+           <mvc:mapping path="/**"/>
+           <bean class="com.zkq.Interceptor.LoginInterceptor">
+               <property name="uncheckUrls">
+                   <list>
+                       <value>/login.action</value>
+                       <value>/toView.action</value>
+                       <value>/aboutme.action</value>
+                   </list>
+               </property>
+           </bean>
+       </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
