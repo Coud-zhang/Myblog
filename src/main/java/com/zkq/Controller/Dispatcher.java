@@ -15,11 +15,12 @@ public class Dispatcher {
     }
     @RequestMapping("/toView")
     public String dispatcherToview(){
-        log.debug("跳转到main.html");
+        log.debug("跳转到view.html");
         return "view";
     }
     @RequestMapping("/aboutme")
     public  String aboutMe(){
+        log.debug("跳转到关于我.html");
         return "about";
     }
 }
