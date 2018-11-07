@@ -23,4 +23,8 @@ public class Dispatcher {
         log.debug("跳转到关于我.html");
         return "about";
     }
+    @RequestMapping("/toLoginView")
+    public String tologin(){
+        return "login";
+    }
 }

@@ -1,6 +1,5 @@
 package com.zkq.Interceptor;
 
-import com.zkq.domain.UsersCustom;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
@@ -20,55 +19,60 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private List<String> uncheckUrls;
     private Boolean flag=false;
+    private String userName;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        response.setHeader("Access-Control-Allow-Origin", "*");
         String requestUrl=request.getRequestURI(); //获得请求的URL
         log.debug("请求的URL:"+requestUrl);
         //获取session
         HttpSession session=request.getSession();
-        //得到登录用户的相关信息
-        UsersCustom usersCustom=new UsersCustom();
-        usersCustom.setUsername(request.getParameter("username"));
-        usersCustom.setPassword(request.getParameter("password"));
-        //判断是否存在cookie,存在cookie拦截，直接进入后台管理页面，免登录
-        Cookie[] cookies = request.getCookies();
-        if(cookies!=null&cookies.length!=0){
-            for(Cookie cookie:cookies){
-                System.out.println(cookies.length);
-                System.out.println(cookie.getName()+ "....00000000000000000000000000000000000....." +cookie.getValue());
-                if(Objects.equals(cookie.getName(),"www.zkq.cn")){
-                    flag=true;
+        //从session中得到登录用户的相关信息
+            //判断是否存在cookie,存在cookie拦截，直接进入后台管理页面，免登录
+        log.debug("session.getAttribute:"+(String) session.getAttribute("userName"));
+            Cookie[] cookies = request.getCookies();
+            if(cookies!=null&&cookies.length!=0){
+                System.out.println("cookies的长度:"+cookies.length);
+                for(Cookie cookie:cookies){
+                    System.out.println(cookie.getName()+ ".........." +cookie.getValue());
+                    System.out.println("cookie是否相等"+Objects.equals(cookie.getName(),"www.zkq.cn"));
+                    if(Objects.equals(cookie.getName(),"www.zkq.cn")){
+                        System.out.println("判断相等");
+                        flag=true;
+                        userName=cookie.getValue();
+                        break;
+                    }
                 }
-                break;
             }
-        }
-        //此时cookie存在，进行拦截并且存储转发到主页面，设置session
-        if(flag){
-            if(requestUrl.indexOf("/login.action")>0){
-                log.debug("存在此cookie，拦截免登录");
-                session.setAttribute("username",usersCustom);
-                request.getRequestDispatcher("/toMain.action").forward(request,response);
-                return false;
-            }
-            return  true;
-        }else{
-            //不存在cookie，即不能直接进入后台管理页面，对登录进行拦截
-            log.debug("不存在cookie");
-            //判断请求的URL是否为公开地址，是则不拦截
-            if(uncheckUrls.contains(requestUrl)){
-                log.debug("请求地址为公开地址，不拦截");
-                return true;
-            }
-            if(session.getAttribute("username")!=null){
-                log.debug("用户在session中存在，放行");
+        System.out.println("判断cookie的标志位flag的值:"+flag);
+            //此时cookie存在，进行拦截并且存储转发到主页面，设置session
+            if(flag){
+                if(requestUrl.contains("/toLoginView.action")){
+                    log.debug("请求toLogin且存在cookie，拦截请求免登录");
+                    session.setAttribute("userName",userName);
+                    request.getRequestDispatcher("/toMain.action").forward(request,response);
+                    return false;
+                }
+                //cookie存在，但不是请求tologin页面
+                if(requestUrl.contains("/logout.action")){
+                   flag=false;
+                }
                 return  true;
             }else{
-                log.debug("session中不存在用户，拦截");
-                request.getRequestDispatcher("login.html").forward(request,response);
-                return false;
+                log.debug("不存在cookie");   // 没有勾选记住密码，或者退出时清楚了cookie
+                if(uncheckUrls.contains(requestUrl)){
+                    log.debug("公开地址");
+                    return true;
+                }
+                if(session.getAttribute("username")!=null){
+                    log.debug("用户在session中存在，放行");
+                    return  true;
+                }else{
+                    log.debug("session中不存在用户，拦截");
+                    request.getRequestDispatcher("/toLoginView.action").forward(request,response);
+                    return false;
+                }
             }
-        }
+
     }
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {

@@ -21,7 +21,7 @@ public class LoginAndLogout {
     userservice userservice;
     @RequestMapping("/login")
     @ResponseBody
-    public String CheckLogin(HttpServletResponse response,UsersCustom usersCustom, HttpSession session, @RequestParam("remberMe") boolean remberme){
+    public String checkLogin(HttpServletResponse response,UsersCustom usersCustom, HttpSession session, @RequestParam(name="remberMe",required =false) boolean remberme){
         log.debug("username:"+usersCustom.getUsername()+".."+"password:"+usersCustom.getPassword());
         boolean flag= userservice.checkUserNameAndPassword(usersCustom);
         if(flag){
@@ -31,7 +31,7 @@ public class LoginAndLogout {
                 cookie.setMaxAge(864000);
                 response.addCookie(cookie);
             }
-            session.setAttribute("username",usersCustom);
+            session.setAttribute("userName",usersCustom.getUsername());
             log.debug("用户名密码验证成功");
             return "true";
         }else{
@@ -41,10 +41,10 @@ public class LoginAndLogout {
     }
     @RequestMapping("/logout")
     public String logOut(HttpSession session,HttpServletResponse response,HttpServletRequest request){
-        UsersCustom usersCustom=(UsersCustom)request.getSession().getAttribute("username");
-        Cookie cookie=new Cookie("www.zkq.cn",usersCustom.getUsername());
+        String userName= (String) request.getSession().getAttribute("userName");
+        System.out.println(userName);
+        Cookie cookie=new Cookie("www.zkq.cn",userName);
         cookie.setMaxAge(0);
-        cookie.setPath("/");
         response.addCookie(cookie);
         session.invalidate();
         return "view";

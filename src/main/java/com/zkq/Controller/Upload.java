@@ -1,6 +1,6 @@
 package com.zkq.Controller;
 
-import com.zkq.utils.uploadResultHandler;
+import com.zkq.utils.UploadResultHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,11 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class upload {
+public class Upload {
 
     @RequestMapping("/fileUpload")
     @ResponseBody
-    public uploadResultHandler<String> fileUpload(HttpServletRequest request, @RequestParam("file") CommonsMultipartFile file) throws IOException {
+    public UploadResultHandler<String> fileUpload(HttpServletRequest request, @RequestParam("file") CommonsMultipartFile file) throws IOException {
         //得到文件保存的路径
         String path=request.getServletContext().getRealPath("/upload");
         byte [] buffer=new byte[400];
@@ -33,9 +33,9 @@ public class upload {
             map.put("title",file.getOriginalFilename());
             is.close();
             os.close();
-            return new uploadResultHandler(0,"",map);
+            return new UploadResultHandler(0,"",map);
         }else{
-            return new uploadResultHandler(1,"",map);
+            return new UploadResultHandler(1,"",map);
         }
     }
 }

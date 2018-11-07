@@ -9,7 +9,9 @@
     <!--静态资源默认-->
     <mvc:default-servlet-handler />
     <!--开启扫描-->
-    <context:component-scan base-package="com.zkq.Controller"></context:component-scan>
+    <context:component-scan base-package="com.zkq.Controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
     <!--配置文件上传-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="utf-8"></property>
@@ -28,6 +30,7 @@
            <bean class="com.zkq.Interceptor.LoginInterceptor">
                <property name="uncheckUrls">
                    <list>
+                       <value>/toLoginView.action</value>
                        <value>/login.action</value>
                        <value>/toView.action</value>
                        <value>/aboutme.action</value>

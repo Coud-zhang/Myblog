@@ -7,13 +7,13 @@ import java.util.Map;
 
 @Component
 @Data
-public class uploadResultHandler<T> {
+public class UploadResultHandler<T> {
     private int code;
     private String msg;
     private Map<T,T> data;
-    public uploadResultHandler(){}
+    public UploadResultHandler(){}
 
-    public uploadResultHandler(int code, String msg, Map<T, T> data) {
+    public UploadResultHandler(int code, String msg, Map<T, T> data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
