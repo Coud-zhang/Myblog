@@ -49,7 +49,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 if(requestUrl.contains("/toLoginView.action")){
                     log.debug("请求toLogin且存在cookie，拦截请求免登录");
                     session.setAttribute("userName",userName);
-                    request.getRequestDispatcher("/toMain.action").forward(request,response);
+                    response.sendRedirect("/toMain.action");
                     return false;
                 }
                 //cookie存在，但不是请求tologin页面
@@ -68,7 +68,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     return  true;
                 }else{
                     log.debug("session中不存在用户，拦截");
-                    request.getRequestDispatcher("/toLoginView.action").forward(request,response);
+                    response.sendRedirect("/toLoginView.action");
                     return false;
                 }
             }

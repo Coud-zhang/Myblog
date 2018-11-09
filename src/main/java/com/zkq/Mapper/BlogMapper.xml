@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zkq.Mapper.BlogMapper">
-    <sql id="queryByBlog">
-        <if test="id!=null">
-            id=#{id}
-        </if>
+    <sql id="blog_column">
+        id,title,article,data,zan,label
     </sql>
     <sql id="queryByPage">
         <if test="keyword!=null">
@@ -19,7 +17,7 @@
     </sql>
     <!--分页查询所有博客-->
     <select id="getBlogByPage" parameterType="Page" resultType="Blog">
-        select * from blog
+        select <include refid="blog_column"></include> from blog
         <include refid="queryByPage"></include>
     </select>
     <!--分页查询博客总数-->
@@ -28,7 +26,7 @@
     </select>
     <!--关键字查询所有博客-->
     <select id="getBlogWithKeyWord" parameterType="Page" resultType="Blog">
-        SELECT  * FROM blog
+        SELECT <include refid="blog_column"></include> FROM blog
         <where>
             <include refid="queryByPage"></include>
         </where>
@@ -44,7 +42,9 @@
     <delete id="deleteBlog" parameterType="blogCustom">
         DELETE from blog 
         <where>
-            <include refid="queryByBlog"></include>
+            <if test="id!=null">
+                id=#{id}
+            </if>
         </where>
     </delete>
     <!--新增博客-->
@@ -53,9 +53,11 @@
     </insert>
     <!--根据id查找博客-->
     <select id="getBlogById" parameterType="blogCustom" resultType="BlogCustom">
-        SELECT title,article,label from blog
+        SELECT <include refid="blog_column"></include> from blog
         <where>
-          <include refid="queryByBlog"></include>
+            <if test="id!=null">
+                id=#{id}
+            </if>
         </where>
     </select>
 </mapper>

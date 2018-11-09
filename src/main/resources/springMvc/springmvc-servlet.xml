@@ -9,9 +9,7 @@
     <!--静态资源默认-->
     <mvc:default-servlet-handler />
     <!--开启扫描-->
-    <context:component-scan base-package="com.zkq.Controller" use-default-filters="false">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-    </context:component-scan>
+    <context:component-scan base-package="com.zkq.Controller"></context:component-scan>
     <!--配置文件上传-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="utf-8"></property>
@@ -21,7 +19,6 @@
     <!--配置视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/"></property>
-        <property name="suffix" value=".html"></property>
     </bean>
     <!--配置拦截器-->
     <mvc:interceptors>
@@ -34,6 +31,7 @@
                        <value>/login.action</value>
                        <value>/toView.action</value>
                        <value>/aboutme.action</value>
+                       <value>/toblog.action</value>
                    </list>
                </property>
            </bean>

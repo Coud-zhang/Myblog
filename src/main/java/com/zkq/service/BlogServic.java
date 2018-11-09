@@ -3,6 +3,7 @@ package com.zkq.service;
 import com.zkq.domain.Blog;
 import com.zkq.domain.Page;
 import com.zkq.domain.BlogCustom;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
