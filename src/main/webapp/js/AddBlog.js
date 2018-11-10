@@ -11,11 +11,9 @@ layui.use('layedit', function(){
     index=layedit.build('AddBlog'); //建立编辑器
 });
 $(document).on('click','#sub',function(){
-    console.log("...............")
     var title=$("#title").val();
     var article=layedit.getContent(index);
     var label=$("#label").val();
-    console.log(title+article+label)
     $.ajax({
         url:"/insertBlog.action",
         type: "POST",

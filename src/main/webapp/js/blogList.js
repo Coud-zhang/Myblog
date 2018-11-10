@@ -1,7 +1,19 @@
-layui.use(['table',"util","layer"],function () {
+var index;
+layui.use(['table',"util","layer","layedit"],function () {
     var table = layui.table;
     var util=layui.util;
     var layer=layui.layer;
+    // 设置富文本编辑器
+     var layedit=layui.layedit;
+    layedit.set({
+        uploadImage: {
+            url: "/fileUpload.action", //接口url
+            type:"post"
+        }
+        ,height:150
+    });
+    index=layedit.build("AddBlog"); //建立编辑器
+    //博客列表渲染
     table.render({
         elem:"#bloglist",
         height:450,
@@ -38,10 +50,9 @@ layui.use(['table',"util","layer"],function () {
                         dataType:"json",
                         data:{"id":data.id},
                         success:function (bdata) {
-                            console.log(bdata)
                             $("#title").val(bdata.title)
                             $("#label").val(bdata.label)
-                            $("#AddBlog").html(bdata.article)
+                            layedit.setContent(index,bdata.article);
                         }
                     })
 
@@ -83,10 +94,9 @@ layui.use(['table',"util","layer"],function () {
                         dataType:"json",
                         data:{"id":data.id},
                         success:function (bdata) {
-                            console.log(bdata)
                             $("#title").val(bdata.title)
                             $("#label").val(bdata.label)
-                            $("#AddBlog").html(bdata.article)
+                            layedit.setContent(index,bdata.article);
                         }
                     })
 

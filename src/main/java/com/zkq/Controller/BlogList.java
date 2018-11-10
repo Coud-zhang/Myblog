@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +24,10 @@ public class BlogList {
     BlogServic blogServic;
      @RequestMapping("/getBlogByPage")
      @ResponseBody
-    public ResultHanler<List<Blog>> getBlogByPage(Page page, @RequestParam("page") int spage,@RequestParam("limit") int limit){
-        page.setCurrentPage(spage);
+    public ResultHanler<List<Blog>> getBlogByPage(Page page, @RequestParam("page") int currentPage,@RequestParam("limit") int limit){
+        page.setCurrentPage(currentPage);
         page.setPageNumber(limit);
-         List<Blog> blogList=blogServic.getBlogByPage(page);
+        List<Blog> blogList=blogServic.getBlogByPage(page);
         blogServic.setBlogTotalRows(page);
         return new ResultHanler<>(0,"",page.getTotalRows(),blogList);
     }
@@ -66,4 +70,27 @@ public class BlogList {
     public BlogCustom getBlogById(BlogCustom blogCustom){
          return  blogServic.getBlogById(blogCustom);
      }
+
+     @RequestMapping("/getBlogByPageToView")
+    public void getBlogByPageToView(Page page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+         //设置当前页数
+         int currentPage=Integer.valueOf(request.getParameter("currentPage"));
+         if(currentPage==0){
+             currentPage=1;
+         }
+        page.setCurrentPage(currentPage);
+        //设置每页行数
+        page.setPageNumber(5);
+        //需要返回的数据
+         List<Blog> blogList=blogServic.getBlogByPage(page);
+         page.setList(blogList);
+         //设置总行数
+        blogServic.setBlogTotalRows(page);
+        int totalPage=page.getTotalRows()%page.getPageNumber()==0?page.getTotalRows()/page.getPageNumber():page.getTotalRows()/page.getPageNumber()+1;
+        page.setTotalPage(totalPage);
+        request.setAttribute("bloglist",page);
+         request.getRequestDispatcher("/BlogView.jsp").forward(request,response);
+
+    }
+
 }

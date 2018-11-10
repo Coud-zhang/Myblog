@@ -27,9 +27,4 @@ public class Dispatcher {
     public String tologin(){
         return "login.html";
     }
-
-    @RequestMapping("/toblog")
-    public String toBlog(){
-        return "BlogView.jsp";
-    }
 }

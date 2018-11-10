@@ -6,8 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!-- mvc的注解驱动 -->
     <mvc:annotation-driven/>
-    <!--静态资源默认-->
-    <mvc:default-servlet-handler />
+    <mvc:default-servlet-handler/>
     <!--开启扫描-->
     <context:component-scan base-package="com.zkq.Controller"></context:component-scan>
     <!--配置文件上传-->
@@ -31,7 +30,7 @@
                        <value>/login.action</value>
                        <value>/toView.action</value>
                        <value>/aboutme.action</value>
-                       <value>/toblog.action</value>
+                       <value>/getBlogByPageToView.action</value>
                    </list>
                </property>
            </bean>
