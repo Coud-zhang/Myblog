@@ -30,6 +30,8 @@ public class BlogServiceImpl implements  BlogServic {
 
     @Override
     public List<Blog> getBlogWithKeyWord(Page page) {
+        int start= (page.getCurrentPage()-1)*page.getPageNumber();
+        page.setStart(start);
          List<Blog> blogs=blogMapper.getBlogWithKeyWord(page);
         return blogs;
     }
@@ -58,4 +60,10 @@ public class BlogServiceImpl implements  BlogServic {
     public BlogCustom getBlogById(BlogCustom blogCustom) {
         return blogMapper.getBlogById(blogCustom);
     }
+
+    @Override
+    public boolean updateBlog(BlogCustom BlogCustom) {
+        return blogMapper.updateBlog(BlogCustom)==1?true:false;
+    }
+
 }

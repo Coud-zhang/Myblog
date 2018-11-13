@@ -8,32 +8,45 @@
         <if test="keyword!=null">
             AND LOWER (title) LIKE "%${keyword}%"
         </if>
+    </sql>
+    <sql id="queryByPage_limit">
         <if test="start!=null and pageNumber!=0">
-         limit #{start}
+            limit #{start}
         </if>
         <if test="pageNumber!=null and pageNumber!=0">
             ,#{pageNumber}
         </if>
     </sql>
+    <!--<sql id="update_blog">-->
+        <!--<if test=""></if>-->
+    <!--</sql>-->
     <!--分页查询所有博客-->
     <select id="getBlogByPage" parameterType="Page" resultType="Blog">
-        select <include refid="blog_column"></include> from blog
+        select <include refid="blog_column"></include>
+        from blog
+        ORDER BY data DESC ,id
         <include refid="queryByPage"></include>
+        <include refid="queryByPage_limit"></include>
     </select>
     <!--分页查询博客总数-->
     <select id="getBlogTotalRows" parameterType="Page" resultType="int">
         SELECT  COUNT(*) FROM blog
     </select>
-    <!--关键字查询所有博客-->
+    <!--关键字查询所有博客
+    mysql会对limit进行优化，在表中有多条相同数据是采取短路，找到合适的数据就返回，不再进行排序，加上id进行解决
+    -->
     <select id="getBlogWithKeyWord" parameterType="Page" resultType="Blog">
-        SELECT <include refid="blog_column"></include> FROM blog
+        SELECT <include refid="blog_column"></include>
+        FROM blog
         <where>
             <include refid="queryByPage"></include>
         </where>
+        ORDER BY data DESC ,id
+        <include refid="queryByPage_limit"></include>
     </select>
     <!--关键字查询博客总数-->
     <select id="getBlogTotalWithKeyWord" parameterType="Page" resultType="int">
-        SELECT  COUNT(1) FROM blog
+        SELECT  COUNT(*) FROM blog
         <where>
             <include refid="queryByPage"></include>
         </where>
@@ -60,4 +73,15 @@
             </if>
         </where>
     </select>
+    <!--修改博客-->
+    <update id="updateBlog" parameterType="blogCustom">
+        UPDATE blog
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="article!=null">article=#{article},</if>
+            <if test="zan!=null">zan=#{zan},</if>
+            <if test="label!=null">label=#{label}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>

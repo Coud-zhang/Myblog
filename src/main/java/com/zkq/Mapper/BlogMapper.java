@@ -19,4 +19,6 @@ public int deleteBlog(BlogCustom BlogCustom);
 public int insertBlog(BlogCustom blogCustom);
 //根据id查找blog
 public BlogCustom getBlogById(BlogCustom blogCustom);
+//修改博客
+public int updateBlog(BlogCustom blogCustom);
 }

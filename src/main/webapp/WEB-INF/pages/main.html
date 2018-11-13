@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" />
+    <script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../static/layui/layui.js" ></script>
+    <script type="text/javascript" src="../../static/js/main.js"></script>
+    <title>博客管理页面</title>
+    <style>
+        .layui-table{
+            margin: 0px;
+        }
+        .layui-table-view{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">MyBlog控制台</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="">个人中心<span class="layui-badge-dot"></span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href=""><img src="#" class="layui-nav-img">我</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;">修改信息</a>
+                    </dd>
+                    <dd>
+                        <a href="/logout.action">退出</a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <!--左侧导航-->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">文章管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="#" id="addBlog">添加博客</a></dd>
+                        <dd><a href="#" id="loadBlogList">博客列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">用户权限管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">移动模块</a></dd>
+                        <dd><a href="">后台模版</a></dd>
+                        <dd><a href="">电商平台</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">垃圾桶</a></li>
+                <li class="layui-nav-item"><a href="">大数据</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body" id="layui-body">
+        <!-- 内容主体区域 -->
+    </div>
+    <div class="layui-footer">
+       <center>张凯强&刘妍版权所有&copy;<a>联系我<address>13054626536@163.com</address></a></center>
+    </div>
+</div>
+</body>
+</html>

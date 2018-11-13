@@ -12,7 +12,7 @@
         -->
         <Console name="Console" target="SYSTEM_OUT">
             <!--日志输出的格式-->
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %l - %msg%n" />
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
         </Console>
     </Appenders>
     <!--
@@ -26,6 +26,9 @@
         <!--mybatis-->
         <logger name="org.mybatis" level="info" additivity="false">
             <appender-ref ref="Console" />
+        </logger>
+        <logger name="org.apache.ibatis.io" level="info" additivity="false">
+            <appender-ref ref="Console"></appender-ref>
         </logger>
         <logger name="org.springframework.core" level="INFO" additivity="false"></logger>
         <logger name="org.springframework.beans" level="INFO" additivity="false"></logger>

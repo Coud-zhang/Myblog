@@ -41,6 +41,10 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+    <!--自定义监听器-->
+    <listener>
+        <listener-class>com.zkq.utils.WebContextListener</listener-class>
+    </listener>
     <!--配置spring配置文件地址-->
     <context-param>
         <param-name>contextConfigLocation</param-name>

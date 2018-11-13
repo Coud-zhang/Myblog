@@ -11,20 +11,20 @@ public class Dispatcher {
     @RequestMapping("/toMain")
     public String dispatcherToMain(){
         log.debug("跳转到main.html");
-        return "main.html";
+        return "pages/main.html";
     }
     @RequestMapping("/toView")
     public String dispatcherToview(){
         log.debug("跳转到view.html");
-        return "view.html";
+        return "pages/view.html";
     }
     @RequestMapping("/aboutme")
     public  String aboutMe(){
         log.debug("跳转到关于我.html");
-        return "about.html";
+        return "pages/about.html";
     }
     @RequestMapping("/toLoginView")
     public String tologin(){
-        return "login.html";
+        return "pages/login.html";
     }
 }

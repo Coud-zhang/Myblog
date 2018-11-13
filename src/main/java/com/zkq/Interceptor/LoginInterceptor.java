@@ -28,22 +28,16 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session=request.getSession();
         //从session中得到登录用户的相关信息
             //判断是否存在cookie,存在cookie拦截，直接进入后台管理页面，免登录
-        log.debug("session.getAttribute:"+(String) session.getAttribute("userName"));
             Cookie[] cookies = request.getCookies();
             if(cookies!=null&&cookies.length!=0){
-                System.out.println("cookies的长度:"+cookies.length);
                 for(Cookie cookie:cookies){
-                    System.out.println(cookie.getName()+ ".........." +cookie.getValue());
-                    System.out.println("cookie是否相等"+Objects.equals(cookie.getName(),"www.zkq.cn"));
                     if(Objects.equals(cookie.getName(),"www.zkq.cn")){
-                        System.out.println("判断相等");
                         flag=true;
                         userName=cookie.getValue();
                         break;
                     }
                 }
             }
-        System.out.println("判断cookie的标志位flag的值:"+flag);
             //此时cookie存在，进行拦截并且存储转发到主页面，设置session
             if(flag){
                 if(requestUrl.contains("/toLoginView.action")){

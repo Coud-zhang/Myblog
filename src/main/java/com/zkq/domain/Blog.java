@@ -1,6 +1,7 @@
 package com.zkq.domain;
 
 import lombok.Data;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 @Component
 @Data

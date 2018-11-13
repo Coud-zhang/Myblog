@@ -1,6 +1,7 @@
 package com.zkq.service;
 
 import com.zkq.domain.Blog;
+import com.zkq.domain.BlogCustom;
 import com.zkq.domain.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,5 +36,15 @@ public class BlogServiceImplTest {
     @Test
     public void getBlogWithKeyWord() {
 
+    }
+
+    @Test
+    public void updateBlog() {
+        BlogCustom BlogCustom =new BlogCustom();
+        BlogCustom.setId(3);
+        BlogCustom.setTitle("300");
+        BlogCustom.setArticle("300");
+        boolean a=blogServic.updateBlog(BlogCustom);
+        System.out.println(a);
     }
 }

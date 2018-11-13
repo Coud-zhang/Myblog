@@ -15,4 +15,5 @@ public interface BlogServic {
     public boolean deleteBlog(BlogCustom BlogCustom);
     public boolean insertBlog(BlogCustom blogCustom);
     public BlogCustom getBlogById(BlogCustom blogCustom);
+    public boolean updateBlog(BlogCustom BlogCustom);
 }

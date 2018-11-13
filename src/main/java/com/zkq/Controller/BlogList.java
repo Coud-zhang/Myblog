@@ -35,6 +35,7 @@ public class BlogList {
     @ResponseBody
     public ResultHanler<List<Blog>> getBlogWithKeyWord(Page page,@RequestParam("page") int spage,@RequestParam("limit") int limit){
         page.setCurrentPage(spage);
+        System.out.println(spage+"............."+limit);
         page.setPageNumber(limit);
         List<Blog> blogs=blogServic.getBlogWithKeyWord(page);
         blogServic.setBlogTotalWithKeyWord(page);
@@ -71,6 +72,13 @@ public class BlogList {
          return  blogServic.getBlogById(blogCustom);
      }
 
+
+    @RequestMapping("/getBlogByIdToView")
+    public void getBlogByIdToView(BlogCustom blogCustom,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BlogCustom blogCustom1=blogServic.getBlogById(blogCustom);
+        request.setAttribute("blog",blogCustom);
+        request.getRequestDispatcher("/BlogView.jsp").forward(request,response);
+    }
      @RequestMapping("/getBlogByPageToView")
     public void getBlogByPageToView(Page page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          //设置当前页数
@@ -89,8 +97,20 @@ public class BlogList {
         int totalPage=page.getTotalRows()%page.getPageNumber()==0?page.getTotalRows()/page.getPageNumber():page.getTotalRows()/page.getPageNumber()+1;
         page.setTotalPage(totalPage);
         request.setAttribute("bloglist",page);
-         request.getRequestDispatcher("/BlogView.jsp").forward(request,response);
-
+        request.getRequestDispatcher("/BlogView.jsp").forward(request,response);
     }
 
+    @RequestMapping("/updateBlog")
+    @ResponseBody
+    public List<String> updateBlog(BlogCustom blogCustom){
+        System.out.println(blogCustom.getId());
+        boolean flag= blogServic.updateBlog(blogCustom);
+        List<String> blogs=new ArrayList<>();
+        if(flag){
+            blogs.add("true");
+        }else{
+            blogs.add("false");
+        }
+        return  blogs;
+    }
 }

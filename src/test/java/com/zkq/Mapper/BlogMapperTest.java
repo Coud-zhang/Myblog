@@ -65,4 +65,14 @@ public class BlogMapperTest {
         BlogCustom blogCustom=blogMapper.getBlogById(BlogCustom);
         System.out.println(blogCustom);
     }
+
+    @Test
+    public void updateBlog() {
+        BlogCustom BlogCustom =new BlogCustom();
+        BlogCustom.setId(3);
+        BlogCustom.setTitle("3333");
+        BlogCustom.setArticle("3");
+        int a=blogMapper.updateBlog(BlogCustom);
+        System.out.println(a);
+    }
 }
