@@ -1,4 +1,4 @@
-package com.zkq.Mapper;
+package com.zkq.mapper;
 
 import com.zkq.domain.Blog;
 import com.zkq.domain.Page;

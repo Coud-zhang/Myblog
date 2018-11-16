@@ -1,11 +1,13 @@
 package com.zkq.service;
-import com.zkq.Mapper.UserMapper;
+import com.zkq.mapper.UserMapper;
 import com.zkq.domain.UsersCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * @author zkq15
+ * */
 @Service
-public class Userserviceimpl implements userservice {
+public class Userserviceimpl implements Userservice {
         @Autowired
         UserMapper userMapper;
 @Override

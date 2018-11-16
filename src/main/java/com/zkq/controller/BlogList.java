@@ -1,4 +1,4 @@
-package com.zkq.Controller;
+package com.zkq.controller;
 
 import com.zkq.domain.Blog;
 import com.zkq.domain.Page;
@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * @author zkq15
+ * */
 
 @Controller
 public class BlogList {
@@ -43,8 +46,8 @@ public class BlogList {
     }
      @RequestMapping("/deleteBlog")
     @ResponseBody
-    public List<String> deleteBlog(BlogCustom BlogCustom){
-         boolean flag= blogServic.deleteBlog(BlogCustom);
+    public List<String> deleteBlog(BlogCustom blogCustom){
+         boolean flag= blogServic.deleteBlog(blogCustom);
          List<String> blogs=new ArrayList<>();
          if(flag){
              blogs.add("true");

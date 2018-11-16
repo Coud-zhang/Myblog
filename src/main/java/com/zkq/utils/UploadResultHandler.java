@@ -4,7 +4,9 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
-
+/**
+ * @author zkq15
+ * */
 @Component
 @Data
 public class UploadResultHandler<T> {

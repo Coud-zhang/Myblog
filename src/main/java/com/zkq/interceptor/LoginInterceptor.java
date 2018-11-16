@@ -1,4 +1,4 @@
-package com.zkq.Interceptor;
+package com.zkq.interceptor;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * @author zkq15
+ * */
 @Data
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
@@ -20,9 +22,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     private List<String> uncheckUrls;
     private Boolean flag=false;
     private String userName;
-
+              @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String requestUrl=request.getRequestURI(); //获得请求的URL
+                  //获得请求的URL
+       String requestUrl=request.getRequestURI();
         log.debug("请求的URL:"+requestUrl);
         //获取session
         HttpSession session=request.getSession();
@@ -52,7 +55,8 @@ public class LoginInterceptor implements HandlerInterceptor {
                 }
                 return  true;
             }else{
-                log.debug("不存在cookie");   // 没有勾选记住密码，或者退出时清楚了cookie
+                // 没有勾选记住密码，或者退出时清楚了cookie
+                log.debug("不存在cookie");
                 if(uncheckUrls.contains(requestUrl)){
                     log.debug("公开地址");
                     return true;
@@ -68,10 +72,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
 
     }
-
+@Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
     }
-
+@Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
     }
 }

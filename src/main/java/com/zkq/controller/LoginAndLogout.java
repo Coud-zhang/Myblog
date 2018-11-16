@@ -1,7 +1,7 @@
-package com.zkq.Controller;
+package com.zkq.controller;
 
 import com.zkq.domain.UsersCustom;
-import com.zkq.service.userservice;
+import com.zkq.service.Userservice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +13,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+/**
+ * @author zkq15
+ * */
 @Controller
 @Slf4j
 public class LoginAndLogout {
     @Autowired
-    userservice userservice;
+    Userservice userservice;
     @RequestMapping("/login")
     @ResponseBody
     public String checkLogin(HttpServletResponse response,UsersCustom usersCustom, HttpSession session, @RequestParam(name="remberMe",required =false) boolean remberme){

@@ -4,15 +4,23 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+/**
+ * @author zkq15
+ * @param
+ * */
 @Component
 @Data
 public class Page{
-    private int currentPage; //当前页数
-    private int totalPage;//总页数
-    private int pageNumber;//每页行数
-    private int totalRows;//总行数
-    private List<Blog> list;//前端页面展示博客需要返回的数据
+    //当前页数
+    private int currentPage;
+    //总页数
+    private int totalPage;
+    //每页行数
+    private int pageNumber;
+    //总行数
+    private int totalRows;
+    //前端页面展示博客需要返回的数据
+    private List<Blog> list;
     private int start;
     private String keyword;
     public Page(){}

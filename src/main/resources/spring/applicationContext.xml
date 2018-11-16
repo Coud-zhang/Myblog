@@ -52,7 +52,7 @@
     </bean>
     <!--开启mapper的批量扫描-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.zkq.Mapper"></property>
+        <property name="basePackage" value="com.zkq.mapper"></property>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 </beans>

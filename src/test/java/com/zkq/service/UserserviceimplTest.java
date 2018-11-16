@@ -12,12 +12,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UserserviceimplTest {
 
     @Autowired
-    userservice userservice;
+    Userservice Userservice;
     @Test
     public void checkUserNameAndPassword() {
         UsersCustom usersCustom=new UsersCustom();
         usersCustom.setUsername("zkq162534");
         usersCustom.setPassword("zkq162534");
-        System.out.println(userservice.checkUserNameAndPassword(usersCustom));
+        System.out.println(Userservice.checkUserNameAndPassword(usersCustom));
     }
 }

@@ -2,7 +2,9 @@ package com.zkq.utils;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
-
+/**
+ * @author zkq15
+ * */
 @Component
 @Data
 public class ResultHanler<T> {

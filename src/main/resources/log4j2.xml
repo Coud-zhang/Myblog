@@ -34,7 +34,7 @@
         <logger name="org.springframework.beans" level="INFO" additivity="false"></logger>
         <logger name="org.springframework.context" level="INFO" additivity="false"></logger>
         <logger name="org.springframework.web" level="INFO" additivity="false"></logger>
-        <logger name="com.zkq.Mapper" level="debug" additivity="false">
+        <logger name="com.zkq.mapper" level="debug" additivity="false">
             <appender-ref ref="Console" />
         </logger>
         <Root level="debug">

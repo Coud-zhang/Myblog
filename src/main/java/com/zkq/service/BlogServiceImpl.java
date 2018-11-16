@@ -1,6 +1,6 @@
 package com.zkq.service;
 
-import com.zkq.Mapper.BlogMapper;
+import com.zkq.mapper.BlogMapper;
 import com.zkq.domain.Blog;
 import com.zkq.domain.BlogCustom;
 import com.zkq.domain.Page;
@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+/**
+ * @author zkq15
+ * */
 @Service
 public class BlogServiceImpl implements  BlogServic {
    @Autowired
@@ -18,14 +21,16 @@ public class BlogServiceImpl implements  BlogServic {
     public List<Blog> getBlogByPage(Page blogPage) {
         int start= (blogPage.getCurrentPage()-1)*blogPage.getPageNumber();
         blogPage.setStart(start);
-        List<Blog> bloglist=blogMapper.getBlogByPage(blogPage); //得到分页查询的list
+        //得到分页查询的list
+        List<Blog> bloglist=blogMapper.getBlogByPage(blogPage);
         return bloglist;
     }
 
     @Override
     public void setBlogTotalRows(Page blogPage) {
         int count=blogMapper.getBlogTotalRows();
-        blogPage.setTotalRows(count); //设置总行数
+        //设置总行数
+        blogPage.setTotalRows(count);
     }
 
     @Override
@@ -39,7 +44,8 @@ public class BlogServiceImpl implements  BlogServic {
     @Override
     public void setBlogTotalWithKeyWord(Page page) {
         int count=blogMapper.getBlogTotalWithKeyWord(page);
-        page.setTotalRows(count); //设置总行数
+        //设置总行数
+        page.setTotalRows(count);
         System.out.println(count);
     }
 
@@ -62,8 +68,8 @@ public class BlogServiceImpl implements  BlogServic {
     }
 
     @Override
-    public boolean updateBlog(BlogCustom BlogCustom) {
-        return blogMapper.updateBlog(BlogCustom)==1?true:false;
+    public boolean updateBlog(BlogCustom blogCustom) {
+        return blogMapper.updateBlog(blogCustom)==1?true:false;
     }
 
 }

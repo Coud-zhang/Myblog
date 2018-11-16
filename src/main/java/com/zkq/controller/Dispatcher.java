@@ -1,9 +1,11 @@
-package com.zkq.Controller;
+package com.zkq.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * @author zkq15
+ * */
 @Controller
 @Slf4j
 public class Dispatcher {

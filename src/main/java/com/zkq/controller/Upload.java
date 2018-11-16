@@ -1,4 +1,4 @@
-package com.zkq.Controller;
+package com.zkq.controller;
 
 import com.zkq.utils.UploadResultHandler;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author zkq15
+ * */
 @Controller
 public class Upload {
 
@@ -22,14 +24,15 @@ public class Upload {
         String path=request.getServletContext().getRealPath("/upload");
         byte [] buffer=new byte[400];
         int len=0;
-        Map<String,String> map=new HashMap<>();
+        Map<String,String> map=new HashMap<>(3);
         if(file!=null){
             InputStream is= file.getInputStream();
             OutputStream os=new FileOutputStream(new File(path,file.getOriginalFilename()));
             while ((len=is.read())!=-1){
                 os.write(buffer,0,len);
             }
-            map.put("src","upload/"+file.getOriginalFilename());//upload
+            //upload
+            map.put("src","upload/"+file.getOriginalFilename());
             map.put("title",file.getOriginalFilename());
             is.close();
             os.close();
