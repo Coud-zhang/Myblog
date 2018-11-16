@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Data
 public class Blog {
     private Integer id;
+    private Integer  preId;
+    private Integer nextId;
     private String title;
     private String article;
     private String data;

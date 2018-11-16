@@ -76,7 +76,7 @@ public class BlogList {
     @RequestMapping("/getBlogByIdToView")
     public void getBlogByIdToView(BlogCustom blogCustom,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BlogCustom blogCustom1=blogServic.getBlogById(blogCustom);
-        request.setAttribute("blog",blogCustom);
+        request.setAttribute("blog",blogCustom1);
         request.getRequestDispatcher("/BlogView.jsp").forward(request,response);
     }
      @RequestMapping("/getBlogByPageToView")

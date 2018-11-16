@@ -14,7 +14,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/applicationContext.xml")
 public class BlogMapperTest {
-@Autowired
+    @Autowired
     BlogMapper blogMapper;
     @Test
     public void getBlogByPage() {

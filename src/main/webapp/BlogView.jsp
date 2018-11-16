@@ -30,10 +30,18 @@
             -moz-background-size: cover;
             -ms-background-size: cover;
         }
-        a:link{color: black;text-decoration: none}
+        a:link{color: white;text-decoration: none}
         .pagination{
             margin-top:50px;
             margin-left: 550px;
+        }
+        #myWechatAndAaLi{
+            position: absolute;
+            left: 530px;
+            top: 260px;
+        }
+        #gift:hover #myWechatAndAaLi{
+             display: block;
         }
     </style>
 </head>
@@ -43,8 +51,8 @@
     <c:forEach items="${requestScope.bloglist.list}" var="blog">
         <div class="panel panel-default col-md-8 col-md-offset-2" style="opacity: 0.6;">
             <input type="text" style="display: none" value="${blog.id}">
-            <div class="panel-body">
-                    ${blog.title}
+            <div class="panel-body" >
+                <p>${blog.title}</p>
             </div>
             <div class="panel-footer">
                 <div class="col-md-2">
@@ -57,14 +65,14 @@
                     <span class="glyphicon glyphicon-tags"></span>&nbsp;${blog.label}
                 </div>
                 <div class="col-md-2 col-md-offset-2">
-                    <a class="btn btn-primary" type="submit" href="/getBlogByIdToView.action?id=${blog.id}">阅读更多</a>
+                    <a class="btn btn-primary" type="submit" href="${pageContext.request.contextPath}/getBlogByIdToView.action?id=${blog.id}">阅读更多</a>
                 </div>
             </div>
         </div>
     </c:forEach>
     <ul class="pagination"></ul>
     <script type="text/javascript">
-        var setPaginator = function(pageCurr, pageSum, callback) {
+        var setPaginator = function(pageCurr, pageSum) {
             $('.pagination').bootstrapPaginator({ // 这个方法调用时，自动在.pagination添加分页li
                 /*当前使用的是3版本的bootstrap*/
                 bootstrapMajorVersion: 3,
@@ -89,7 +97,7 @@
                 //添加监听事件
                 //page是点击当前页数
                 onPageClicked: function(event, originalEvent, type, page) {
-                    window.location.href="/getBlogByPageToView.action?currentPage="+page;
+                    window.location.href="${pageContext.request.contextPath}/getBlogByPageToView.action?currentPage="+page;
                 }
             });
         }
@@ -121,12 +129,65 @@
     </script>
 </c:if>
 <c:if test="${not empty requestScope.blog}">
-    ${blog.id}
+    <input type="text" style="display: none" value="${blog.zan}" id="zan">
+    <%--面包屑导航--%>
+    <div class="container" style="opacity: 0.8">
+        <ul class="breadcrumb col-md-8 col-md-offset-2" style="opacity: 0.6">
+            <li>当前位置:</li>
+            <li><a href="${pageContext.request.contextPath}/toView.action" style="color: #985f0d">Home</a></li>
+            <li>BlogDetial</li>
+        </ul>
+        <div class="panel panel-warning col-md-8 col-md-offset-2">
+            <div class="panel-heading">
+                <h3 class="panel-title">${blog.title}</h3>
+            </div>
+            <div class="panel-body">
+                <p>${blog.article}</p>
+                <div class="col-md-offset-4">
+                    <button type="button" class="btn btn-info btn-lg" id="update_zan">
+                        <span class="glyphicon glyphicon-heart-empty" id="glyphicon_updatezan"></span>点赞
+                    </button>
+                    <button type="button" class="btn btn-info btn-lg" id="gift">
+                        <span class="glyphicon glyphicon-gift"></span>打赏
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myWechatAndAaLi"style="width: 400px;display: none">
+               <img src="static/img/支付宝.jpg" style="float: left;width: 200px;height: 260px;">
+               <img src="static/img/微信.jpg" style="float: right;width: 200px;height: 260px;">
+    </div>
+    <ul class="pager" style="opacity: 0.6">
+        <li><a href="" style="color: #009E94">前一篇</a></li>
+        <li><a href="${pageContext.request.contextPath}/getBlogByPageToView.action?currentPage=1" style="color: #009E94">返回博客列表</a></li>
+        <li><a href="" style="color: #009E94">后一篇</a></li>
+    </ul>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var zan=+document.getElementById("zan").value+1;
+            $("#update_zan").on("click",function () {
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/updateBlog.action",
+                    data:{"id":${blog.id},"zan":zan},
+                    type:"post",
+                    datatype:"json",
+                    success:function (data) {
+                        if(data[0]=="true"){
+                             console.log("点赞成功")
+                            $("#glyphicon_updatezan").removeClass("glyphicon-heart-empty").addClass("glyphicon-heart")
+                        }else{
+                            console.log("点赞失败")
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 </c:if>
 </body>
 <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="static/js/bootstrap-paginator.js"></script>
-<script type="text/javascript" src="static/js/BlogView.js"></script>
 <script type="text/javascript">
     $("#loadNav").load("nav.html");
 </script>
