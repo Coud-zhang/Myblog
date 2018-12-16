@@ -4,10 +4,13 @@ import com.zkq.mapper.BlogMapper;
 import com.zkq.domain.Blog;
 import com.zkq.domain.BlogCustom;
 import com.zkq.domain.Page;
+import com.zkq.utils.LocalDateAndSqlDateChange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 /**
@@ -23,6 +26,9 @@ public class BlogServiceImpl implements  BlogServic {
         blogPage.setStart(start);
         //得到分页查询的list
         List<Blog> bloglist=blogMapper.getBlogByPage(blogPage);
+         for(Blog blog:bloglist){
+             blog.setTime(blog.getWritetime().format(DateTimeFormatter.ISO_LOCAL_DATE));
+         }
         return bloglist;
     }
 
@@ -38,6 +44,10 @@ public class BlogServiceImpl implements  BlogServic {
         int start= (page.getCurrentPage()-1)*page.getPageNumber();
         page.setStart(start);
          List<Blog> blogs=blogMapper.getBlogWithKeyWord(page);
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        for(Blog blog:blogs){
+            blog.setTime(blog.getWritetime().format(formatter));
+        }
         return blogs;
     }
 
@@ -56,9 +66,8 @@ public class BlogServiceImpl implements  BlogServic {
 
     @Override
     public boolean insertBlog(BlogCustom blogCustom) {
-        Date date=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-        blogCustom.setData(sdf.format(date));
+        LocalDate now=LocalDate.now();
+        blogCustom.setWritetime(now);
         return blogMapper.insertBlog(blogCustom)==1?true:false;
     }
 

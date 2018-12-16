@@ -26,7 +26,7 @@ layui.use(['table',"util","layer","layedit"],function () {
             {checkbox: true, fixed: true}
             ,{field: 'id', title: 'ID',width:80, sort: true, fixed: 'left'}
             ,{field: 'title', title: '标题', width:347}
-            ,{field: 'data', title: '发布时间',sort: true,width:200,templet: '<div>{{ layui.util.toDateString(d.data,"yyyy-MM-dd") }}</div>'}
+            ,{field: 'time', title: '发布时间',sort: true,width:200,templet: '<div>{{ layui.util.toDateString(d.time,"yyyy-MM-dd") }}</div>'}
             // d.time 中的 time 即是接口返回的时间字段，如果是 unix 时间戳，这里记得要 d.time*1000，如果是毫秒数，这里直接传 d.time 即可
             ,{field: 'zan', title: '点赞数', sort: true,width:100}
             ,{field: 'label', title: '标签',width:80}

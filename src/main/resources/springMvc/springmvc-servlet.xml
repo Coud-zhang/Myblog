@@ -34,6 +34,7 @@
                        <value>/getBlogByPageToView.action</value>
                        <value>/updateBlog.action</value>
                        <value>/getBlogByIdToView.action</value>
+                       <value>/searchWithSolr.action</value>
                    </list>
                </property>
            </bean>

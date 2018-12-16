@@ -31,9 +31,9 @@
             </ul>
             <form class="navbar-form navbar-right " role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search...">
+                    <input type="text" class="form-control" placeholder="Search..." id="solrText">
                 </div>
-                <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-search"></span> <strong>搜索</strong></button>
+                <button type="button" class="btn btn-success" id="serachWithSolr"> <span class="glyphicon glyphicon-search"></span> <strong>搜索</strong></button>
             </form>
         </div>
     </div>
@@ -42,12 +42,29 @@
 <!--导航栏点击哪个哪个高亮-->
 <script type="text/javascript">
     $(document).ready(function(){
+        //导航栏点击哪个哪个亮
         $('ul.nav > li').each(function(index, item){
             var class_name = location.pathname.split('/')[1];
             if($(this).hasClass(class_name)){
                 $(this).addClass("active").siblings().removeClass("active");
             }
         });
+        $("#serachWithSolr").on("click",function () {
+            let text=$("#solrText").val();
+            console.log(text)
+            $.ajax({
+                url:"/searchWithSolr.action",
+                type:"post",
+                datatype:"html",
+                data:{"blog_keywords":text},
+                async:true,
+                success:function (data){
+                    console.log(data)
+                    $("#change").empty()
+                    document.getElementById("change").innerHTML=data;
+                }
+            })
+        })
     });
 </script>
 </html>

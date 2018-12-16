@@ -22,7 +22,7 @@ public class BlogMapperTest {
         page.setStart(0);
         page.setPageNumber(2);
        List<Blog> blogs= blogMapper.getBlogByPage(page);
-        System.out.println(blogs.get(1).getData());
+        System.out.println(blogs.get(1).getWritetime().getClass());
     }
 
     @Test

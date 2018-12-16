@@ -12,7 +12,7 @@
         -->
         <Console name="Console" target="SYSTEM_OUT">
             <!--日志输出的格式-->
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{HH:mm:ss:SSS} [%p] - %l - %m%n"/>
         </Console>
     </Appenders>
     <!--

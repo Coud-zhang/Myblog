@@ -17,7 +17,7 @@
     <script src="static/js/jquery-3.3.1.min.js"></script>
     <style>
         body{
-            padding-top: 150px;
+            padding-top: 100px;
             font-size: 15px;
             font-weight: bold;
             background: url("static/img/山湖.jpeg");
@@ -35,18 +35,12 @@
             margin-top:50px;
             margin-left: 550px;
         }
-        #myWechatAndAaLi{
-            position: absolute;
-            left: 530px;
-            top: 260px;
-        }
-        #gift:hover #myWechatAndAaLi{
-             display: block;
-        }
     </style>
 </head>
 <body>
-<div id="loadNav"></div>
+<div id="loadNav" style="width: 100%;height: 52px;"></div>
+<div id="change">
+<%--博客列表和具体一篇博客公用--博客列表页面--%>
 <c:if test="${ not empty requestScope.bloglist}">
     <c:forEach items="${requestScope.bloglist.list}" var="blog">
         <div class="panel panel-default col-md-8 col-md-offset-2" style="opacity: 0.6;">
@@ -56,7 +50,7 @@
             </div>
             <div class="panel-footer">
                 <div class="col-md-2">
-                    <span class="glyphicon glyphicon-time"></span>  ${blog.data}
+                    <span class="glyphicon glyphicon-time"></span>  ${blog.writetime}
                 </div>
                 <div class="col-md-2 col-md-offset-1" >
                     <span class="glyphicon glyphicon-thumbs-up"></span> ${blog.zan}
@@ -72,6 +66,7 @@
     </c:forEach>
     <ul class="pagination"></ul>
     <script type="text/javascript">
+        //使用基于Bootstrap的分页插件pagination
         var setPaginator = function(pageCurr, pageSum) {
             $('.pagination').bootstrapPaginator({ // 这个方法调用时，自动在.pagination添加分页li
                 /*当前使用的是3版本的bootstrap*/
@@ -128,6 +123,8 @@
         // }
     </script>
 </c:if>
+
+<%--博客列表和具体博客公用--具体博客页面--%>
 <c:if test="${not empty requestScope.blog}">
     <input type="text" style="display: none" value="${blog.zan}" id="zan">
     <%--面包屑导航--%>
@@ -148,21 +145,21 @@
                         <span class="glyphicon glyphicon-heart-empty" id="glyphicon_updatezan"></span>点赞
                     </button>
                     <button type="button" class="btn btn-info btn-lg" id="gift">
-                        <span class="glyphicon glyphicon-gift"></span>打赏
+                        <a href="#"><span class="glyphicon glyphicon-gift"></span>打赏</a>
                     </button>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="myWechatAndAaLi"style="width: 400px;display: none">
-               <img src="static/img/支付宝.jpg" style="float: left;width: 200px;height: 260px;">
-               <img src="static/img/微信.jpg" style="float: right;width: 200px;height: 260px;">
     </div>
     <ul class="pager" style="opacity: 0.6">
         <li><a href="" style="color: #009E94">前一篇</a></li>
         <li><a href="${pageContext.request.contextPath}/getBlogByPageToView.action?currentPage=1" style="color: #009E94">返回博客列表</a></li>
         <li><a href="" style="color: #009E94">后一篇</a></li>
     </ul>
+    <div id="myWechatAndAaLi" style="width: 460px;display: none;margin-left: auto;margin-right: auto;opacity: 0.8">
+        <img src="static/img/支付宝.jpg" style="float: left;width: 200px;height: 260px;">
+        <img src="static/img/微信.jpg" style="float: right;width: 200px;height: 260px;">
+    </div>
     <script type="text/javascript">
         $(document).ready(function () {
             var zan=+document.getElementById("zan").value+1;
@@ -181,10 +178,14 @@
                         }
                     }
                 })
-            })
+            });
+          $("#gift").on("click",function () {
+              $("#myWechatAndAaLi").css("display","block")
+          })
         })
     </script>
 </c:if>
+</div>
 </body>
 <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="static/js/bootstrap-paginator.js"></script>

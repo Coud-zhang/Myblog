@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zkq.mapper.BlogMapper">
     <sql id="blog_column">
-        id,title,article,data,zan,label
+        id,title,article,writetime,zan,label
     </sql>
     <sql id="queryByPage">
         <if test="keyword!=null">
@@ -24,7 +24,7 @@
     <select id="getBlogByPage" parameterType="Page" resultType="Blog">
         select <include refid="blog_column"></include>
         from blog
-        ORDER BY data DESC ,id
+        ORDER BY writetime DESC ,id
         <include refid="queryByPage"></include>
         <include refid="queryByPage_limit"></include>
     </select>
@@ -41,7 +41,7 @@
         <where>
             <include refid="queryByPage"></include>
         </where>
-        ORDER BY data DESC ,id
+        ORDER BY writetime DESC ,id
         <include refid="queryByPage_limit"></include>
     </select>
     <!--关键字查询博客总数-->
@@ -62,7 +62,7 @@
     </delete>
     <!--新增博客-->
     <insert id="insertBlog" parameterType="blogCustom">
-        insert into blog(title,article,data,zan,label) VALUES (#{title},#{article},#{data},0,#{label})
+        insert into blog(title,article,writetime,zan,label) VALUES (#{title},#{article},#{writetime},0,#{label})
     </insert>
     <!--根据id查找博客-->
     <select id="getBlogById" parameterType="blogCustom" resultType="BlogCustom">
